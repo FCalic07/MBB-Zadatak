@@ -18,7 +18,7 @@ const ProductDetails = () => {
         const data = await res.json();
 
         const itemsList = data.Deals.Items;
-        const product = itemsList.find((product) => product.DealID == id)
+        const product = itemsList.find((product) => product.DealID === Number(id))
 
         if (!product) {
           throw new Error("Product not found!");
