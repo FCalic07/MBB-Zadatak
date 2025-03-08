@@ -64,7 +64,7 @@ const ProductContainer = () => {
     return (
     <>
         <Filter filterPrice={setPriceRange}/>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-28 pt-12">
         {products.map((product) => (
             <Product key={product.DealID} product={product} />
         ))}

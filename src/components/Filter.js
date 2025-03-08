@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactSlider from "react-slider";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 function Filter({ filterPrice }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [icon, setIcon] = useState(<FaChevronDown />)
   const filterRef = useRef(null);
 
   function handleSliderChange(value) {
@@ -17,8 +19,10 @@ function Filter({ filterPrice }) {
 
   useEffect(() => {
     if (isOpen) {
+      setIcon(<FaChevronUp />)
       document.addEventListener("click", handleOutsideClick);
     } else {
+      setIcon(<FaChevronDown />)
       document.removeEventListener("click", handleOutsideClick);
     }
     return () => {
@@ -27,32 +31,27 @@ function Filter({ filterPrice }) {
   }, [isOpen]);
 
   return (
-    <div className="relative inline-block" ref={filterRef}>
-      {/* Button to toggle filter */}
+    <div className="relative inline-block pl-32 pt-4" ref={filterRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 bg-gray-800 text-white rounded-lg shadow-md hover:bg-gray-700 focus:outline-none"
+        className="flex items-center gap-1 px-4 py-2 border border-black text-black transition duration-200 hover:bg-black hover:text-white"
       >
-        Price
+        Price {icon}
       </button>
 
       {/* Slider box */}
       {isOpen && (
-        <div className="absolute mt-2 p-4 bg-white border border-gray-300 shadow-lg rounded-lg">
+        <div className="absolute mt-2 px-4 py-6 bg-white border border-gray-300 shadow-lg">
           <ReactSlider
-            className="relative w-60 h-1 bg-gray-300 rounded-full"
-            thumbClassName="w-5 h-5 bg-white border border-gray-500 shadow-md rounded-full cursor-pointer focus:outline-none"
-            trackClassName="h-1 bg-gray-500 rounded-full"
-            defaultValue={[10, 200]}
+            className="relative w-60 h-1 bg-gray-500"
+            thumbClassName="w-6 h-6 p-4 rounded-xl bg-white border border-black rounded-xl cursor-pointer flex items-center justify-center text-xs font-bold text-black translate-y-[-50%]"
+            defaultValue={[10, 600]}
             min={10}
-            max={200}
+            max={600}
             ariaLabel={["Lower thumb", "Upper thumb"]}
             ariaValuetext={(state) => `Thumb value ${state.valueNow}`}
             renderThumb={(props, state) => (
-              <div
-                {...props}
-                className="w-5 h-5 bg-white border border-gray-500 shadow-md rounded-full flex items-center justify-center text-xs font-bold text-black"
-              >
+              <div {...props} className="w-6 h-6 p-3 rounded-xl bg-white border border-black flex items-center justify-center text-xs font-bold text-black translate-y-[-50%]">
                 {state.valueNow}
               </div>
             )}
