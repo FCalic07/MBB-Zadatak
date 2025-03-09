@@ -1,6 +1,6 @@
-import NavBar from "./components/NavBar";
-import ProductContainer from "./components/ProductContainer";
-import ProductDetails from "./components/ProductDetails";
+import NavBar from "./components/Navigation/NavBar";
+import ProductContainer from "./components/ProductContainer/ProductContainer";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 
 function App() {
