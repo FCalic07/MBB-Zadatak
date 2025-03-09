@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactSlider from "react-slider";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaTimes } from "react-icons/fa";
 
 function Filter({ filterPrice, minMaxPrice }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [filterActive, setFilterActive] = useState(false);
   const filterRef = useRef(null);
   const [range, setRange] = useState([minMaxPrice[0], minMaxPrice[1]]);
 
@@ -12,13 +13,20 @@ function Filter({ filterPrice, minMaxPrice }) {
   }
 
   function handleAfterChange(value) {
-    filterPrice(value); // Apply filter only after user stops dragging
+    setFilterActive(true);
+    filterPrice(value);
   }
 
   function handleOutsideClick(event) {
     if (filterRef.current && !filterRef.current.contains(event.target)) {
       setIsOpen(false);
     }
+  }
+
+  function handleFilterBoxClick(){
+    setRange([minMaxPrice[0], minMaxPrice[1]]);
+    filterPrice([minMaxPrice[0], minMaxPrice[1]]);
+    setFilterActive(false);
   }
 
   useEffect(() => {
@@ -33,14 +41,15 @@ function Filter({ filterPrice, minMaxPrice }) {
   }, [isOpen]);
 
   return (
-    <div className="relative inline-block pl-32 pt-4" ref={filterRef}>
+    <div className="flex gap-4 pt-4 pl-32">
+    <div className="relative inline-block" ref={filterRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-1 px-4 py-2 border border-black text-black transition duration-200 hover:bg-black hover:text-white"
       >
         Price <FaChevronDown className={`transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
-
+ 
       {isOpen && (
         <div className="absolute mt-2 px-4 py-6 bg-white border border-gray-300 shadow-lg w-64">
           <ReactSlider
@@ -85,6 +94,16 @@ function Filter({ filterPrice, minMaxPrice }) {
           </div>
         </div>
       )}
+    </div>
+
+    {filterActive &&
+      <button
+        onClick={handleFilterBoxClick}
+        className="flex gap-2 items-center px-4 bg-gray-200 text-black transition duration-200 hover:bg-black hover:text-white"
+      >
+        {range[0] / 100}€ - {range[1] / 100}€ <FaTimes/>
+      </button>}
+
     </div>
   );
 }
