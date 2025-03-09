@@ -36,7 +36,7 @@ function Filter({ filterPrice }) {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-1 px-4 py-2 border border-black text-black transition duration-200 hover:bg-black hover:text-white"
       >
-        Price {icon}
+        Price <div className="pointer-events-none">{icon}</div>
       </button>
 
       {/* Slider box */}
