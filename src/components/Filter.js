@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactSlider from "react-slider";
 import { FaChevronDown, FaTimes } from "react-icons/fa";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 function Filter({ filterPrice, minMaxPrice }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,28 +18,13 @@ function Filter({ filterPrice, minMaxPrice }) {
     filterPrice(value);
   }
 
-  function handleOutsideClick(event) {
-    if (filterRef.current && !filterRef.current.contains(event.target)) {
-      setIsOpen(false);
-    }
-  }
+  useOutsideClick(filterRef, setIsOpen);
 
   function handleFilterBoxClick(){
     setRange([minMaxPrice[0], minMaxPrice[1]]);
     filterPrice([minMaxPrice[0], minMaxPrice[1]]);
     setFilterActive(false);
   }
-
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("click", handleOutsideClick);
-    } else {
-      document.removeEventListener("click", handleOutsideClick);
-    }
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, [isOpen]);
 
   return (
     <div className="flex gap-4 pt-4 pl-32">
