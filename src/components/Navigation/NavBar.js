@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { FaRegHeart, FaHeart, FaRegUser } from 'react-icons/fa';
+import { FaRegHeart, FaRegUser } from 'react-icons/fa';
 
 function NavBar() {
 
