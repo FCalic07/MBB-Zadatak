@@ -21,7 +21,7 @@ const Product = ({ product }) => {
       />
       <div className="mt-4">
         <h2 className="text-xl font-semibold">{product.Brand.Name}</h2>
-        <h2 className="text-lg">{product.Details.DealName}</h2>
+        <h2 className="text-lg truncate">{product.Details.DealName}</h2>
         <div className="flex gap-8">
           {isDiscount ? (
             <>

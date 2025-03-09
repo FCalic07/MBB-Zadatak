@@ -1,7 +1,13 @@
-import React from "react";
-import { FaRegHeart, FaRegUser } from 'react-icons/fa';
+import React, {useEffect} from "react";
+import { FaRegHeart, FaHeart, FaRegUser } from 'react-icons/fa';
 
 function NavBar() {
+
+  useEffect(()=>{
+    console.log("rerendered navbar");
+  });
+
+
     return (
         <nav className="bg-black h-14 px-28">
           <div className="flex items-center justify-between h-full">
@@ -15,8 +21,8 @@ function NavBar() {
             </a>
     
             <div className="flex items-center space-x-6">
-              <a href="/"><FaRegHeart className="text-white text-xl"/></a>
-              <a href="/"><FaRegUser className="text-white text-xl"/></a>
+              <FaRegHeart className="text-white text-xl"/>
+              <FaRegUser className="text-white text-xl"/>
             </div>
           </div>
         </nav>

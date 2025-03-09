@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import ReactSlider from "react-slider";
 import { FaChevronDown, FaTimes } from "react-icons/fa";
 import useOutsideClick from "../../hooks/useOutsideClick";
