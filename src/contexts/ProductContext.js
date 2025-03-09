@@ -39,11 +39,9 @@ export const ProductProvider = ({ children }) => {
             setLoading(false);
         }
     };
-
-    console.log("ovo bi trebalo samo jednom");
     findMinMaxOfProducts();
     }, []);
-
+    
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -64,11 +62,10 @@ export const ProductProvider = ({ children }) => {
             }
             finally {
                 setLoading(false);
+                console.log("poziv za fetchanje filtrirano");
             }
 
         };
-
-        console.log("rendered");
     fetchProducts();
     }, [selectedPriceRange])
 

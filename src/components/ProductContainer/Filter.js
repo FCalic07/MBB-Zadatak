@@ -1,9 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import ReactSlider from "react-slider";
 import { FaChevronDown, FaTimes } from "react-icons/fa";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import { ProductContext } from "../../contexts/ProductContext";
 
-function Filter({ filterPrice, minMaxPrice }) {
+function Filter({ minMaxPrice }) {
+  const { setSelectedPriceRange } = useContext(ProductContext);
   const [isOpen, setIsOpen] = useState(false);
   const [filterActive, setFilterActive] = useState(false);
   const filterRef = useRef(null);
@@ -15,14 +17,14 @@ function Filter({ filterPrice, minMaxPrice }) {
 
   function handleAfterChange(value) {
     setFilterActive(true);
-    filterPrice(value);
+    setSelectedPriceRange(value);
   }
 
   useOutsideClick(filterRef, setIsOpen);
 
-  function handleFilterBoxClick(){
+  function handleFilterUndoClick(){
     setRange([minMaxPrice[0], minMaxPrice[1]]);
-    filterPrice([minMaxPrice[0], minMaxPrice[1]]);
+    setSelectedPriceRange([minMaxPrice[0], minMaxPrice[1]]);
     setFilterActive(false);
   }
 
@@ -62,7 +64,7 @@ function Filter({ filterPrice, minMaxPrice }) {
                 const newMin = Math.max(minMaxPrice[0], Math.min(Number(e.target.value), range[1]));
                 setRange([newMin, range[1]]);
               }}
-              onBlur={() => filterPrice(range)}
+              onBlur={() => setSelectedPriceRange(range)}
             />
             <span className="text-gray-700">-</span>
             <input
@@ -75,7 +77,7 @@ function Filter({ filterPrice, minMaxPrice }) {
                 const newMax = Math.min(minMaxPrice[1], Math.max(Number(e.target.value), range[0]));
                 setRange([range[0], newMax]);
               }}
-              onBlur={() => filterPrice(range)}
+              onBlur={() => setSelectedPriceRange(range)}
             />
           </div>
         </div>
@@ -84,7 +86,7 @@ function Filter({ filterPrice, minMaxPrice }) {
 
     {filterActive &&
       <button
-        onClick={handleFilterBoxClick}
+        onClick={handleFilterUndoClick}
         className="flex gap-2 items-center px-4 bg-gray-200 text-black transition duration-200 hover:bg-black hover:text-white"
       >
         {range[0] / 100}€ - {range[1] / 100}€ <FaTimes/>

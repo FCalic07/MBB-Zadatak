@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 const Product = ({ product }) => {
   const navigate = useNavigate();
-
   const imageBaseUrl = "https://cdn.mybestbrands.de/";
   const thumbnailUrl = `${imageBaseUrl}${product.Details.Media.ThumbnailImagePath}`;
 
